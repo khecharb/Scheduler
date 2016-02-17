@@ -1,0 +1,71 @@
+﻿@model Scheduler.ViewModels.PersonViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@*github check*@
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            First Name
+           
+        </th>
+        <th>
+            Last NAme
+            
+        </th>
+        <th>
+            Email
+            
+        </th>
+        <th>
+            Roles
+          
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Persons) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            <ul id="roles">
+                <!-- Existing list items will be pre-added to the tags -->
+                <li>Tag1</li>
+                <li>Tag2</li>
+            </ul>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var roleTags = @Html.Raw(Model.Roles);
+            
+
+        $("#roles").tagit( {
+            autocomplete: roleTags,
+            minLength: 2
+        });
+    });
+</script>
