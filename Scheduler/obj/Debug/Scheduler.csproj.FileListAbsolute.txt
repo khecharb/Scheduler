@@ -60,3 +60,35 @@ C:\MyProjects\Schedulerv1\Scheduler\obj\Debug\Scheduler.dll
 C:\MyProjects\Schedulerv1\Scheduler\obj\Debug\Scheduler.pdb
 C:\MyProjects\Schedulerv1\Scheduler\obj\Debug\Scheduler.Migrations.firstMigration.resources
 C:\MyProjects\Schedulerv1\Scheduler\obj\Debug\Scheduler.csproj.GenerateResource.Cache
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Scheduler.dll.config
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Scheduler.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Scheduler.pdb
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Antlr3.Runtime.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\EntityFramework.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\EntityFramework.SqlServer.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Newtonsoft.Json.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Helpers.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Mvc.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Optimization.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Razor.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.WebPages.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.WebPages.Razor.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\WebGrease.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\EntityFramework.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\EntityFramework.SqlServer.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Helpers.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Mvc.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Optimization.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.Razor.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.WebPages.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\System.Web.WebPages.Razor.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Antlr3.Runtime.pdb
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\bin\Newtonsoft.Json.xml
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\obj\Debug\Scheduler.csprojResolveAssemblyReference.cache
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\obj\Debug\Scheduler.Migrations.firstMigration.resources
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\obj\Debug\Scheduler.csproj.GenerateResource.Cache
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\obj\Debug\Scheduler.dll
+C:\Users\Nicholas\Documents\Visual Studio 2015\Projects\Scheduler\Scheduler\obj\Debug\Scheduler.pdb

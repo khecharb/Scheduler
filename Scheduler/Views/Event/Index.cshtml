@@ -1,0 +1,81 @@
+﻿@model Scheduler.ViewModels.EventViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+@*github check*@
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+           
+        </th>
+        <th>
+            Room
+            
+        </th>
+        <th>
+            Date
+            
+        </th>
+        <th>
+            Start Time
+          
+        </th>
+        <th>
+            End Time
+
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Events) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Room)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            <ul id="needs">
+                <!-- Existing list items will be pre-added to the tags -->
+                <li>Tag1</li>
+                <li>Tag2</li>
+            </ul>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var needTags = @Html.Raw(Model.Needs);
+            
+
+        $("#needs").tagit( {
+            autocomplete: needTags,
+            minLength: 2
+        });
+    });
+</script>
