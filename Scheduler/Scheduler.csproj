@@ -126,6 +126,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602220500494_first Migration.cs" />
+    <Compile Include="Migrations\201602220500494_first Migration.Designer.cs">
+      <DependentUpon>201602220500494_first Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Need.cs" />
@@ -190,6 +195,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602220500494_first Migration.resx">
+      <DependentUpon>201602220500494_first Migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
