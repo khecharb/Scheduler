@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Scheduler.DAL;
 using Scheduler.Models;
 using Scheduler.ViewModels;
+using System.IO;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Scheduler.Controllers
 {
@@ -64,6 +66,8 @@ namespace Scheduler.Controllers
         // GET: Person/Edit/5
         public ActionResult Edit(int? id)
         {
+            //my method
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

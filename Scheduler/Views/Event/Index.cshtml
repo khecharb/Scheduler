@@ -9,26 +9,51 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm("Upload", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <label for="file">Upload File:</label>
+        <input type="file" name="file" id="file" />
+
+        <input type="submit" />
+    </form>
+}
+
+@using (Html.BeginForm())
+{
+    <b>
+        Search: @Html.RadioButton("option", "Name") 
+        <text>Name</text> @Html.RadioButton("option", "Room") <text>Room</text> @Html.RadioButton("option", "Date") <text>Date</text> @Html.RadioButton("option", "Start Time")<text>Start Time</text> @Html.RadioButton("option", "End Time")<text>End Time</text>
+        @Html.TextBox("search")
+        <input type="submit" value="Search" />
+    </b>
+}
+
 <table class="table">
     <tr>
         <th>
-            Name
+            @Html.ActionLink("Name", "Index", new {SortOrder = ViewBag.NameSortParm})
            
         </th>
         <th>
-            Room
+            @Html.ActionLink("Room", "Index", new {SortOrder = ViewBag.RoomSortParm})
             
         </th>
         <th>
-            Date
+            @Html.ActionLink("Date", "Index", new { SortOrder = ViewBag.DateSortParm })
             
         </th>
         <th>
-            Start Time
+            @Html.ActionLink("Start Time", "Index", new { SortOrder = ViewBag.StartTimeSortParm })
           
         </th>
         <th>
-            End Time
+            @Html.ActionLink("End Time", "Index", new { SortOrder = ViewBag.EndTimeSortParm })
 
         </th>
         <th></th>
@@ -68,14 +93,3 @@
 
 </table>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        var needTags = @Html.Raw(Model.Needs);
-            
-
-        $("#needs").tagit( {
-            autocomplete: needTags,
-            minLength: 2
-        });
-    });
-</script>
