@@ -20,123 +20,130 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Person
-        public ActionResult Index(string SortOrder, string option, string search/*, DateTime SearchDateTime*/) {
-            
-            //first I had to rename the third parameter from 'SearchString' to 'search' -- 'search' is what you called it in the index.cshtml file
-            // the following will be a algorithm for search. I'll ignore the sorting feature for now
-            
+        public ActionResult Index(string SortOrder, string option, string Option, string SearchTerm, string search, DateTime? SearchDateTime)
+        {
+
             EventViewModel eventViewModel = new EventViewModel(); //this constructor will return an object that conains a list of all events a list of roles... see the EventViewModel class
 
             //did the user type in a search term?
-            if (search != null && search != "" && option != null) {
+            if (search != null && search != "" && option != null)
+            {
                 //determine what field they are searching; i.e. Name, Room, etc...
-                if (option == "Name") {
+                if (option == "Name")
+                {
                     //  1. get a list of events whose name field matches the search term
-                    List<Event> matchingEvents = db.Events.Where(s => s.Name == search).ToList();
-                            //or use var instead of List ---> var MatchingEvents = db.Events.Where(s => s.Name == search).ToList();
-                            //or don't go to the database, you already have a complete list of events in the view model. ---> List<Event> matchingEvents = eventViewModel.Events.Where(s => s.Name == search).ToList();
+                    List<Event> matchingEvents = db.Events.Where(s => s.Name.Contains(search)).ToList();
                     //  2. replace the list of all events in the eventViewModel with the list of matching events
                     eventViewModel.Events = matchingEvents;
                 }
-                //else if () ..... other searches go here
-
+                else if (option == "Room")
+                {
+                    List<Event> matchingEvents = db.Events.Where(s => s.Room.Contains(search)).ToList();
+                    eventViewModel.Events = matchingEvents;
+                }
+                else if (option == "Date")
+                {
+                    List<Event> matchingEvents = new List<Event>();
+                    foreach (Event e in eventViewModel.Events)
+                    {
+                        if (e.EventDate.ToString().Contains(search) == true)
+                        {
+                            matchingEvents.Add(e);
+                        }
+                    }
+                    eventViewModel.Events = matchingEvents;
+                }
+                else if (option == "Start Time")
+                {
+                    List<Event> matchingEvents = new List<Event>();
+                    foreach (Event e in eventViewModel.Events)
+                    {
+                        if (e.StartTime.ToString().Contains(search) == true)
+                        {
+                            matchingEvents.Add(e);
+                        }
+                    }
+                    eventViewModel.Events = matchingEvents;
+                }
+                else if (option == "End Time")
+                {
+                    List<Event> matchingEvents = new List<Event>();
+                    foreach (Event e in eventViewModel.Events)
+                    {
+                        if (e.EndTime.ToString().Contains(search) == true)
+                        {
+                            matchingEvents.Add(e);
+                        }
+                    }
+                    eventViewModel.Events = matchingEvents;
+                }
             }
-            else {
-                //no search term; don't need to do anything
-
+            else
+            {
+                //no search term; don't need to do anything   
+                search = SearchTerm;
+                option = Option;          
             }
+            ViewBag.Option = option;
+            ViewBag.SearchTerm = search; // make the sort feature return only a sorted list of matching events of a search
+            ViewBag.NameSortParm = SortOrder == "Name" ? "Name_desc" : "Name";  
+            ViewBag.RoomSortParm = SortOrder == "Room" ? "Room_desc" : "Room";
+            ViewBag.DateSortParm = SortOrder == "Date" ? "Date_desc" : "Date";
+            ViewBag.StartTimeSortParm = SortOrder == "StartTime" ? "StartTime_desc" : "StartTime";
+            ViewBag.EndTimeSortParm = SortOrder == "EndTime" ? "EndTime_desc" : "EndTime";
 
 
+            var Events = from s in eventViewModel.Events
+                         select s;
 
+            //List<Event> matchingEvents;
 
+            //make the above code disappear, using objects above.
 
-
-            //return the eventViewModel object which has either all of the events or a list of matching events
+            switch (SortOrder)
+            {
+                case "Name":
+                    //eventViewModel.Events.OrderBy(s => s.Name);
+                    Events = Events.OrderBy(s => s.Name);
+                    break;
+                case "Name_desc":
+                    Events = Events.OrderByDescending(s => s.Name);
+                    break;
+                case "Room":
+                    Events = Events.OrderBy(s => s.Room);
+                    break;
+                case "Room_desc":
+                    Events = Events.OrderByDescending(s => s.Room);
+                    break;
+                case "Date":
+                    Events = Events.OrderBy(s => s.EventDate);
+                    break;
+                case "Date_desc":
+                    Events = Events.OrderByDescending(s => s.EventDate);
+                    break;
+                case "StartTime":
+                    Events = Events.OrderBy(s => s.StartTime);
+                    break;
+                case "StartTime_desc":
+                    Events = Events.OrderByDescending(s => s.StartTime);
+                    break;
+                case "EndTime":
+                    Events = Events.OrderBy(s => s.EndTime);
+                    break;
+                case "EndTime_desc":
+                    Events = Events.OrderByDescending(s => s.EndTime);
+                    break;
+                default:
+                    Events = Events.OrderBy(s => s.Name);
+                    break;
+            }
+            //eventViewModel.Events.ToList();
+            eventViewModel.Events = Events.ToList();
             return View(eventViewModel);
-            
-            
-            //ViewBag.NameSortParm = String.IsNullOrEmpty(SortOrder) ? "Name_desc" : "";
-            //ViewBag.RoomSortParm = SortOrder == "Room" ? "Room_desc" : "";
-            //ViewBag.DateSortParm = SortOrder == "Date" ? "Date_desc" : "";
-            //ViewBag.StartTimeSortParm = SortOrder == "StartTime" ? "StartTime_desc" : "";
-            //ViewBag.EndTimeSortParm = SortOrder == "EndTime" ? "EndTime_desc" : "";
-
-
-            //var Events = from s in db.Events
-            //             select s;
-
-            //if (option == "Name")
-            //{
-            //    var eve = db.Events.Where(s => s.Name == SearchString || SearchString == null).ToList();
-            //    var eventViewModel = new EventViewModel();
-            //    eventViewModel.Events = eve;
-            //    return View(eventViewModel);
-            //}
-            //else if (option == "Room")
-            //{
-            //    return View(db.Events.Where(s => s.Room == SearchString || SearchString == null).ToList());
-            //}
-            //else if (option == "Date")
-            //{
-            //    DateTime SearchDateTime = Convert.ToDateTime(SearchString);
-            //    return View(db.Events.Where(s => s.EventDate == SearchDateTime || SearchDateTime == null).ToList());
-            //}
-            //else if (option == "Start Time")
-            //{
-            //    DateTime SearchDateTime = Convert.ToDateTime(SearchString);
-            //    return View(db.Events.Where(s => s.StartTime == SearchDateTime || SearchDateTime == null).ToList());
-            //}
-            //else if (option == "End Time")
-            //{
-            //    DateTime SearchDateTime = Convert.ToDateTime(SearchString);
-            //    return View(db.Events.Where(s => s.EndTime == SearchDateTime || SearchDateTime == null).ToList());
-            //}
-            ///*if (!String.IsNullOrEmpty(SearchString))
-            //{
-            //    Events = Events.Where(s => s.Name.Contains(SearchString) || s.Room.Contains(SearchString));
-            //}
-            //else if (String = Convert.ToDateTime == null(SearchDateTime))
-            //{
-            //    Events = Events.Where(s => s.EventDate.Contains(SearchDateTime) || s.StartTime.Contains(SearchDateTime) || s.EndTime.Contains(SearchDateTime));
-            //}
-            //*/
-            //switch (SortOrder)
-            //{
-            //    case "name_desc":
-            //        Events = Events.OrderByDescending(s => s.Name);
-            //        break;
-            //    case "Room":
-            //        Events = Events.OrderBy(s => s.Room);
-            //        break;
-            //    case "Room_desc":
-            //        Events = Events.OrderByDescending(s => s.Room);
-            //        break;
-            //    case "Date":
-            //        Events = Events.OrderBy(s => s.EventDate);
-            //        break;
-            //    case "Date_desc":
-            //        Events = Events.OrderByDescending(s => s.EventDate);
-            //        break;
-            //    case "StartTime":
-            //        Events = Events.OrderBy(s => s.StartTime);
-            //        break;
-            //    case "StartTime_desc":
-            //        Events = Events.OrderByDescending(s => s.StartTime);
-            //        break;
-            //    case "EndTime":
-            //        Events = Events.OrderBy(s => s.EndTime);
-            //        break;
-            //    case "EndTime_desc":
-            //        Events = Events.OrderByDescending(s => s.EndTime);
-            //        break;
-            //    default:
-            //        Events = Events.OrderBy(s => s.Name);
-            //        break;
-            //}
-
-            //var personViewModel = new EventViewModel();
-            //return View(personViewModel);
         }
+
+
+
 
         // GET: Person/Details/5
         public ActionResult Details(int? id)
