@@ -9,12 +9,10 @@ namespace Scheduler.ViewModels {
         public List<Person> Persons { get; set; }
         public List<Role> Roles { get; set; }
 
-        public PersonViewModel() {
-            Persons = Person.getAll();
-            Roles = Role.getAll();
-
-        }
-
-
+        //public PersonViewModel() {
+        //    Persons = Person.getAll();
+        //    Roles = Role.getAll();
+            
+        //}
     }
 }

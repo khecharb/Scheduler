@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-@*github check*@
+
 <h2>Index</h2>
 
 <p>
@@ -13,59 +13,85 @@
     <tr>
         <th>
             First Name
-           
+
         </th>
         <th>
             Last NAme
-            
+
         </th>
         <th>
             Email
-            
+
         </th>
         <th>
             Roles
-          
+
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model.Persons) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            <ul id="roles">
-                <!-- Existing list items will be pre-added to the tags -->
-                <li>Tag1</li>
-                <li>Tag2</li>
-            </ul>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+    @foreach (var item in Model.Persons) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+                <a id="p_@item.ID" class="assignmentLink">Assignments</a>
+            </td>
+
+        </tr>
+    <tr id="a_@item.ID" style="display:none">
+        <td colspan="4">
+            <table style="width:100%">
+                @foreach (var assignment in item.Assignments) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.Event.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.Event.Room)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.Role.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.EndTime)
+                        </td>
+                    </tr>
+                }
+            </table>
         </td>
     </tr>
-}
+
+
+    }
 
 </table>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        var roleTags = @Html.Raw(Model.Roles);
-            
-
-        $("#roles").tagit( {
-            autocomplete: roleTags,
-            minLength: 2
+    
+        $(".assignmentLink").click(function() {
+            var id = 'a_' + $(this).attr('id').substring(2);
+            $('#' + id).toggle();
         });
+
+   
+
+    $(document).ready(function () {
+        
+  
+        
     });
 </script>

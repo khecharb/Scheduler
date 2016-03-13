@@ -21,5 +21,14 @@ namespace Scheduler.Models {
             }
             return roles;
         }
+
+        public static Role getRoleByID(int roleID) {
+            Role role = new Role();
+
+            using (var sc = new SchedulerContext()) {
+                role = sc.Roles.Where(r => r.ID == roleID).SingleOrDefault();
+            }
+            return role;
+        }
     }
 }

@@ -27,5 +27,15 @@ namespace Scheduler.Models {
             return events;
         }
 
+        public static Event getEventByID(int eventID) {
+            Event eve = new Event();
+
+            using (var sc = new SchedulerContext()) {
+                eve = sc.Events.Where(e => e.ID == eventID).SingleOrDefault();
+            }
+
+            return eve;
+        }
+
     }
 }

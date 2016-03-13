@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace Scheduler.Models {
     public class Person {
@@ -11,7 +12,7 @@ namespace Scheduler.Models {
         public string LastName { get; set; }
         public string Email { get; set; }
         
-        public virtual ICollection<Assignment> Assignments { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
         public virtual ICollection<XPersonRole> Roles { get; set; }
 
         public static List<Person> getAll() {
