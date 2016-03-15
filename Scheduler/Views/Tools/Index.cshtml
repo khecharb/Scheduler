@@ -1,0 +1,36 @@
+﻿@model Scheduler.ViewModels.ToolsViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h2> Tools! </h2>
+    @if (Model.personDeleteSuccess) {
+        <p>Deleted All People</p>
+    }
+    @if (!Model.personDeleteSuccess) { 
+        <p><a href="/Tools/DeletePersons" >! Delete All Records From Persons Table !</a></p>
+    }
+    
+    @if (Model.eventDeleteSuccess) {
+        <p>Deleted All Events</p>
+    }
+    @if (!Model.eventDeleteSuccess) {
+        <p> <a href="/Tools/DeleteEvents">! Delete All Records From Events Table !</a> </p>
+    }
+
+    @if (Model.assignmentDeleteSuccess) {
+        <p>Deleted All Assignments</p>
+    }
+    @if (!Model.assignmentDeleteSuccess) {
+        <p><a href="/Tools/DeleteAssignments">! Delete All Records From Assignments Table !</a></p>
+    }
+</body>
+</html>
