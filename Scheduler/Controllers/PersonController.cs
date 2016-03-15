@@ -22,9 +22,21 @@ namespace Scheduler.Controllers
         // GET: Person
         public ActionResult Index()
         {
-
-            demoMethods();
-            PersonViewModel personViewModel = createTestData();
+            PersonViewModel personViewModel = new PersonViewModel();
+            personViewModel.Persons = Person.getAll();
+            
+            foreach (Person person in personViewModel.Persons)
+            {
+                person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
+                foreach (Assignment assignment in person.Assignments)
+                {
+                    Event eve = new Event();
+                    eve = Event.getEventByID(assignment.EventID);
+                    assignment.Event = eve;
+                }
+            }
+            //demoMethods();
+            //PersonViewModel personViewModel = createTestData();
             return View(personViewModel);
         }
 

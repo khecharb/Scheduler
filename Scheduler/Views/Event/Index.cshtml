@@ -29,7 +29,7 @@
     <b>
         Search: @Html.RadioButton("option", "Name", ViewBag.Option as string) <text>Name</text> @Html.RadioButton("option", "Room", ViewBag.Option as string) <text>Room</text> @Html.RadioButton("option", "Date", ViewBag.Option as string) <text>Date</text> 
         @Html.RadioButton("option", "Start Time", ViewBag.Option as string)<text>Start Time</text> @Html.RadioButton("option", "End Time", ViewBag.Option as string)<text>End Time</text>
-        @Html.TextBox("search", ViewBag.SearchTerm as string)
+        @Html.TextBox("search", ViewBag.search as string)
         <input type="submit" value="Search" />
     </b>
 }
@@ -37,23 +37,23 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Name", "Index", new { SortOrder = ViewBag.NameSortParm, SearchTerm = ViewBag.SearchTerm, Option = ViewBag.Option})
+            @Html.ActionLink("Name", "Index", new { SortOrder = ViewBag.NameSortParm, search = ViewBag.search, option = ViewBag.option})
            
         </th>
         <th>
-            @Html.ActionLink("Room", "Index", new { SortOrder = ViewBag.RoomSortParm, SearchTerm = ViewBag.SearchTerm, Option = ViewBag.Option})
+            @Html.ActionLink("Room", "Index", new { SortOrder = ViewBag.RoomSortParm, search = ViewBag.search, option = ViewBag.option})
             
         </th>
         <th>
-            @Html.ActionLink("Date", "Index", new { SortOrder = ViewBag.DateSortParm, SearchTerm = ViewBag.SearchTerm, Option = ViewBag.Option})
+            @Html.ActionLink("Date", "Index", new { SortOrder = ViewBag.DateSortParm, search = ViewBag.search, option = ViewBag.option})
             
         </th>
         <th>
-            @Html.ActionLink("Start Time", "Index", new { SortOrder = ViewBag.StartTimeSortParm, SearchTerm = ViewBag.SearchTerm, Option = ViewBag.Option})
+            @Html.ActionLink("Start Time", "Index", new { SortOrder = ViewBag.StartTimeSortParm, search = ViewBag.search, option = ViewBag.option})
           
         </th>
         <th>
-            @Html.ActionLink("End Time", "Index", new { SortOrder = ViewBag.EndTimeSortParm, SearchTerm = ViewBag.SearchTerm, Option = ViewBag.Option})
+            @Html.ActionLink("End Time", "Index", new { SortOrder = ViewBag.EndTimeSortParm, search = ViewBag.search, option = ViewBag.option})
 
         </th>
         <th></th>

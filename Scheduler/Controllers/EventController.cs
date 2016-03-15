@@ -20,7 +20,7 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Person
-        public ActionResult Index(string SortOrder, string option, string Option, string SearchTerm, string search, DateTime? SearchDateTime)
+        public ActionResult Index(string SortOrder, string option, string search, DateTime? SearchDateTime)
         {
 
             EventViewModel eventViewModel = new EventViewModel(); //this constructor will return an object that conains a list of all events a list of roles... see the EventViewModel class
@@ -80,60 +80,64 @@ namespace Scheduler.Controllers
             }
             else
             {
-                //no search term; don't need to do anything   
-                search = SearchTerm;
-                option = Option;          
+                //no search term; don't need to do anything          
             }
-            ViewBag.Option = option;
-            ViewBag.SearchTerm = search; // make the sort feature return only a sorted list of matching events of a search
+
+            ViewBag.search = search;
+            ViewBag.option = option;
             ViewBag.NameSortParm = SortOrder == "Name" ? "Name_desc" : "Name";  
             ViewBag.RoomSortParm = SortOrder == "Room" ? "Room_desc" : "Room";
             ViewBag.DateSortParm = SortOrder == "Date" ? "Date_desc" : "Date";
             ViewBag.StartTimeSortParm = SortOrder == "StartTime" ? "StartTime_desc" : "StartTime";
             ViewBag.EndTimeSortParm = SortOrder == "EndTime" ? "EndTime_desc" : "EndTime";
 
-
             var Events = from s in eventViewModel.Events
-                         select s;
-
-            //List<Event> matchingEvents;
-
-            //make the above code disappear, using objects above.
+                select s;
 
             switch (SortOrder)
             {
                 case "Name":
-                    //eventViewModel.Events.OrderBy(s => s.Name);
+                    //eventViewModel. Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderBy(s => s.Name);
                     break;
                 case "Name_desc":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderByDescending(s => s.Name);
                     break;
                 case "Room":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderBy(s => s.Room);
                     break;
                 case "Room_desc":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderByDescending(s => s.Room);
                     break;
                 case "Date":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderBy(s => s.EventDate);
                     break;
                 case "Date_desc":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderByDescending(s => s.EventDate);
                     break;
                 case "StartTime":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderBy(s => s.StartTime);
                     break;
                 case "StartTime_desc":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderByDescending(s => s.StartTime);
                     break;
                 case "EndTime":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderBy(s => s.EndTime);
                     break;
                 case "EndTime_desc":
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderByDescending(s => s.EndTime);
                     break;
                 default:
+                    //eventViewModel.Events = eventViewModel.Events.OrderBy(s => s.Name).ToList();
                     Events = Events.OrderBy(s => s.Name);
                     break;
             }
