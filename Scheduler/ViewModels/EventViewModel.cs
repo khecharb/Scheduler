@@ -9,11 +9,11 @@ namespace Scheduler.ViewModels {
         public List<Event> Events { get; set; }
         public List<Role> Roles { get; set; }
 
-        public EventViewModel() {
-            Events = Event.getAll();
-            Roles = Role.getAll();
+        //public EventViewModel() {
+        //    Events = Event.getAll();
+        //    Roles = Role.getAll();
 
-        }
+        //}
 
 
     }

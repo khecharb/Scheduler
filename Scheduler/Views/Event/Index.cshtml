@@ -86,10 +86,51 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) |
+            <a id="e_@item.ID" class="assignmentLink">Assignments</a>
+        </td>
+    </tr>
+    <tr id="a_@item.ID" style="display:none">
+        <td colspan="7">
+            <table style="width:100%">
+                @foreach (var assignment in item.Assignments) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.Person.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.Person.LastName)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => assignment.Role.Name)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => assignment.EndTime)
+                        </td>
+                    </tr>
+                }
+            </table>
         </td>
     </tr>
 }
 
 </table>
 
+<script type="text/javascript">
+
+        $(".assignmentLink").click(function() {
+            var id = 'a_' + $(this).attr('id').substring(2);
+            $('#' + id).toggle();
+        });
+
+
+
+    $(document).ready(function () {
+
+
+
+    });
+</script>

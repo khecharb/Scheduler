@@ -24,5 +24,15 @@ namespace Scheduler.Models {
             }
             return persons;
         }
+
+        public static Person getPersonByID(int personID) {
+            Person person = new Person();
+
+            using (var sc = new SchedulerContext()) {
+                person = sc.Persons.Where(p => p.ID == personID).SingleOrDefault();
+            }
+
+            return person;
+        }
     }
 }

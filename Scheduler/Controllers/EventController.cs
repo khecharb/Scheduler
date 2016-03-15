@@ -24,6 +24,9 @@ namespace Scheduler.Controllers
         {
 
             EventViewModel eventViewModel = new EventViewModel(); //this constructor will return an object that conains a list of all events a list of roles... see the EventViewModel class
+           
+
+           
 
             //did the user type in a search term?
             if (search != null && search != "" && option != null)
@@ -80,7 +83,7 @@ namespace Scheduler.Controllers
             }
             else
             {
-                //no search term; don't need to do anything          
+                eventViewModel.Events = Event.getAll();         
             }
 
             ViewBag.search = search;
@@ -143,6 +146,7 @@ namespace Scheduler.Controllers
             }
             //eventViewModel.Events.ToList();
             eventViewModel.Events = Events.ToList();
+
             return View(eventViewModel);
         }
 

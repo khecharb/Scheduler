@@ -27,5 +27,15 @@ namespace Scheduler.Models {
 
             return Assignments;
         }
+
+        public static List<Assignment> getAssignmentsByEvent(int eventID) {
+            List<Assignment> Assignments = new List<Assignment>();
+
+            using (var sc = new SchedulerContext()) {
+                Assignments = sc.Assignments.Where(a => a.EventID == eventID).ToList();
+            }
+
+            return Assignments;
+        }
     }
 }

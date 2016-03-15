@@ -13,7 +13,7 @@ namespace Scheduler.Models {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public virtual ICollection<Assignment> Assignments { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
         public virtual ICollection<Need> Needs { get; set; }
 
         public static List<Event> getAll()
