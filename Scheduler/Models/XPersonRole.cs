@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Scheduler.DAL;
 
 namespace Scheduler.Models {
     public class XPersonRole {
@@ -11,5 +12,8 @@ namespace Scheduler.Models {
 
         public virtual Role Role { get; set; }
         public virtual Person Person { get; set; }
+
     }
+
+
 }

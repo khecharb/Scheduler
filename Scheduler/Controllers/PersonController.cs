@@ -28,11 +28,16 @@ namespace Scheduler.Controllers
             foreach (Person person in personViewModel.Persons)
             {
                 person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
+                
                 foreach (Assignment assignment in person.Assignments)
                 {
                     Event eve = new Event();
                     eve = Event.getEventByID(assignment.EventID);
                     assignment.Event = eve;
+                    Role role = new Role(); 
+                    role = Role.getRoleByID(assignment.RoleID);
+                    assignment.Role = role;
+                    
                 }
             }
             //demoMethods();
