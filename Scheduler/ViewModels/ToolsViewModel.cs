@@ -8,7 +8,5 @@ namespace Scheduler.ViewModels {
         public bool personDeleteSuccess;
         public bool eventDeleteSuccess;
         public bool assignmentDeleteSuccess;
-
-
     }
 }

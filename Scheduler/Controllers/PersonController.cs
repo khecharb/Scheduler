@@ -28,16 +28,15 @@ namespace Scheduler.Controllers
             foreach (Person person in personViewModel.Persons)
             {
                 person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
-                
                 foreach (Assignment assignment in person.Assignments)
                 {
                     Event eve = new Event();
                     eve = Event.getEventByID(assignment.EventID);
                     assignment.Event = eve;
-                    Role role = new Role(); 
+
+                    Role role = new Role();
                     role = Role.getRoleByID(assignment.RoleID);
                     assignment.Role = role;
-                    
                 }
             }
             //demoMethods();
@@ -196,6 +195,7 @@ namespace Scheduler.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(person);
         }
 
@@ -204,9 +204,8 @@ namespace Scheduler.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.Persons.Find(id);
-            db.Persons.Remove(person);
-            db.SaveChanges();
+            //Your code here
+            Person.delete(id);
             return RedirectToAction("Index");
         }
 

@@ -18,7 +18,9 @@ namespace Scheduler.Models {
         public virtual Event Event { get; set; }
         public virtual Role Role { get; set; }
 
-        public static List<Assignment> getAssignmentsByPersonID (int personID) {
+        public static List<Assignment> getAssignmentsByPersonID (int? personID) {
+            if (personID == null) { return null;  }
+
             List<Assignment> Assignments = new List<Assignment>();
 
             using (var sc = new SchedulerContext()) {
@@ -36,6 +38,16 @@ namespace Scheduler.Models {
             }
 
             return Assignments;
+        }
+
+        public static void delete(int? assignmentID) {
+            if (assignmentID == null) { return; }
+
+            using (var sc = new SchedulerContext()) {
+                Assignment a = sc.Assignments.Find(assignmentID);
+                sc.Assignments.Remove(a);
+                sc.SaveChanges();
+            }
         }
     }
 }

@@ -25,7 +25,9 @@ namespace Scheduler.Models {
             return persons;
         }
 
-        public static Person getPersonByID(int personID) {
+        public static Person getPersonByID(int? personID) {
+            if (personID == null) { return null;  }
+            
             Person person = new Person();
 
             using (var sc = new SchedulerContext()) {
@@ -34,5 +36,44 @@ namespace Scheduler.Models {
 
             return person;
         }
+
+        public static void delete(int? personID) {
+            if (personID == null) { return; }
+
+            using (var sc = new SchedulerContext()) {
+                Person p = sc.Persons.Find(personID);
+                sc.Persons.Remove(p);
+                sc.SaveChanges();
+            }
+        }
+
+        public void save() {
+            if (this.ID <= 0) {
+                //new person
+                if (this.FirstName != null && this.FirstName.Length > 0 &&
+                    this.LastName != null && this.LastName.Length > 0 &&
+                    this.Email != null && this.Email.Length > 0) {
+
+                        using (var sc = new SchedulerContext()) {
+                            sc.Persons.Add(this);
+                            sc.SaveChanges();
+                        }
+                }
+            }
+            else {
+                //update existing
+                if (this.FirstName != null && this.FirstName.Length > 0 &&
+                    this.LastName != null && this.LastName.Length > 0 &&
+                    this.Email != null && this.Email.Length > 0) {
+                        
+                        using (var sc = new SchedulerContext()) {
+                                sc.Persons.Attach(this);
+                                sc.Entry(this).State = EntityState.Modified;
+                                sc.SaveChanges();
+                            }
+                }
+            }
+        }
+
     }
 }

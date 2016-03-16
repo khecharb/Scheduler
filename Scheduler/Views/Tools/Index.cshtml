@@ -32,5 +32,11 @@
     @if (!Model.assignmentDeleteSuccess) {
         <p><a href="/Tools/DeleteAssignments">! Delete All Records From Assignments Table !</a></p>
     }
+    @if (ViewBag.seedDataBase) {
+        <p>Seeded Database!</p>
+    }
+    @if (!ViewBag.seedDatabase) {
+        <p><a href="/Tools/SeedDatabase">Write a bunch of test data to the database...</a></p>
+    }
 </body>
 </html>
