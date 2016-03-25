@@ -30,5 +30,16 @@ namespace Scheduler.Models {
             }
             return role;
         }
+
+        public static Role getRoleByName(string Name)
+        {
+            Role role = new Role();
+
+            using (var sc = new SchedulerContext())
+            {
+                role = sc.Roles.Where(r => r.Name == Name).SingleOrDefault();
+            }
+            return role;
+        }
     }
 }

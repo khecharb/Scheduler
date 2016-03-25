@@ -49,5 +49,35 @@ namespace Scheduler.Models {
                 sc.SaveChanges();
             }
         }
+        public void save()
+        {
+            if (this.ID <= 0)
+            {
+                //new person
+                if (this.StartTime != null && this.EndTime != null)
+                {
+
+                    using (var sc = new SchedulerContext())
+                    {
+                        sc.Assignments.Add(this);
+                        sc.SaveChanges();
+                    }
+                }
+            }
+            else {
+                //update existing
+                if (this.StartTime != null && this.EndTime != null)
+                {
+
+                    using (var sc = new SchedulerContext())
+                    {
+                        sc.Assignments.Attach(this);
+                        sc.Entry(this).State = EntityState.Modified;
+                        sc.SaveChanges();
+                    }
+                }
+            }
+
+        }
     }
 }
