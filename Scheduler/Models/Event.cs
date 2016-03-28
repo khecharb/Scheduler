@@ -36,6 +36,14 @@ namespace Scheduler.Models {
             using (var sc = new SchedulerContext())
             {
                 Event p = sc.Events.Find(eveID);
+                // also remove assignments associated with event p
+                p.Assignments = Assignment.getAssignmentsByEvent(p.ID);
+
+                foreach (Assignment assignment in p.Assignments)
+                {
+                    Assignment.delete(assignment.ID);
+                }
+
                 sc.Events.Remove(p);
                 sc.SaveChanges();
             }

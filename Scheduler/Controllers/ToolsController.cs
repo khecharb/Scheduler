@@ -67,17 +67,11 @@ namespace Scheduler.Controllers
 
         public ActionResult DeleteAssignments() {
             Debug.WriteLine("DELETING Assignments");
-            EventViewModel eventViewModel = new EventViewModel();
-            eventViewModel.Events = Event.getAll();
-            foreach (Event eve in eventViewModel.Events)
-            {
-                eve.Assignments = Assignment.getAssignmentsByEvent(eve.ID);
 
-                foreach (Assignment assignment in eve.Assignments)
+            foreach (Assignment assignment in Assignment.getAll())
                 {
                     Assignment.delete(assignment.ID);
                 }
-            }
 
             return RedirectToAction("Index", new { assignmentDelete = true });
         }

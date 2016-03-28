@@ -18,6 +18,17 @@ namespace Scheduler.Models {
         public virtual Event Event { get; set; }
         public virtual Role Role { get; set; }
 
+        public static List<Assignment> getAll()
+        {
+            List<Assignment> assignments = new List<Assignment>();
+
+            using (var sc = new SchedulerContext())
+            {
+                assignments = sc.Assignments.ToList();
+            }
+            return assignments;
+        }
+
         public static List<Assignment> getAssignmentsByPersonID (int? personID) {
             if (personID == null) { return null;  }
 

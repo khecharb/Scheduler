@@ -16,9 +16,31 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Assignments
-        public ActionResult Index()
+        public ActionResult Index(string search, string option)
         {
             var assignments = db.Assignments.Include(a => a.Event).Include(a => a.Person).Include(a => a.Role);
+
+            //search feature for assignments view
+            //if (search != null && search != "" && option != null)
+            //{
+            //    if (option == "Name")
+            //    {
+            //        List<Assignment> matchingAssignments = db.Assignments.Where(s => s.Name.Contains(search)).ToList();
+            //        assignments = matchingAssignments;
+            //    }
+            //    else if (option == "")
+            //    {
+
+            //    }
+            //    else if (option == "")
+            //    {
+
+            //    }
+            //}
+            //else
+            //{
+            //    personViewModel.Persons = Person.getAll();
+            //}
             return View(assignments.ToList());
         }
 

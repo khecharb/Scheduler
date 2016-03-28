@@ -40,8 +40,17 @@ namespace Scheduler.Models {
         public static void delete(int? personID) {
             if (personID == null) { return; }
 
-            using (var sc = new SchedulerContext()) {
+            using (var sc = new SchedulerContext())
+            {
                 Person p = sc.Persons.Find(personID);
+                // also remove any assignments associated with person p
+                //p.Assignments = Assignment.getAssignmentsByPersonID(p.ID);
+
+                //foreach (Assignment assignment in p.Assignments)
+                //{
+                //    Assignment.delete(assignment.ID);
+                //}
+
                 sc.Persons.Remove(p);
                 sc.SaveChanges();
             }

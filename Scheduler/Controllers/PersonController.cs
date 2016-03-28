@@ -20,11 +20,36 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Person
-        public ActionResult Index()
+        public ActionResult Index(string search, string option)
         {
             PersonViewModel personViewModel = new PersonViewModel();
             personViewModel.Persons = Person.getAll();
-            
+
+            //search feature for persons view
+            if (search != null && search != "" && option != null)
+            {
+                if (option == "First Name")
+                {
+                    List<Person> matchingPersons = db.Persons.Where(s => s.FirstName.Contains(search)).ToList();
+                    personViewModel.Persons = matchingPersons;
+                }
+                else if (option == "Last Name")
+                {
+                    List<Person> matchingPersons = db.Persons.Where(s => s.LastName.Contains(search)).ToList();
+                    personViewModel.Persons = matchingPersons;
+                }
+                else if (option == "Email")
+                {
+                    List<Person> matchingPersons = db.Persons.Where(s => s.Email.Contains(search)).ToList();
+                    personViewModel.Persons = matchingPersons;
+                }
+            }
+            else
+            {
+                personViewModel.Persons = Person.getAll();
+            }
+
+            // find and attach events and assignments associated with each person
             foreach (Person person in personViewModel.Persons)
             {
                 person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
@@ -204,7 +229,14 @@ namespace Scheduler.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //Your code here
+            Person person = db.Persons.Find(id);
+
+            person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
+
+            foreach (Assignment assignment in person.Assignments)
+            {
+                Assignment.delete(assignment.ID);
+            }
             Person.delete(id);
             return RedirectToAction("Index");
         }
