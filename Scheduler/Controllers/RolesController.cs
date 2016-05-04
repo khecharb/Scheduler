@@ -16,9 +16,42 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Roles
-        public ActionResult Index()
+        public ActionResult Index(string SortOrder, string search)
         {
-            return View(db.Roles.ToList());
+            List<Role> roles = Role.getAll();
+
+            //search feature for Roles
+            if (search != null && search != "")
+            {
+                List<Role> matchingRoles = db.Roles.Where(s => s.Name.Contains(search)).ToList();
+                roles = matchingRoles;
+            }
+            else
+            {
+                roles = Role.getAll().ToList();
+            }
+
+            //sort feature for Roles
+            ViewBag.search = search;
+            ViewBag.NameSortParm = SortOrder == "Name" ? "Name_desc" : "Name";
+
+            //var roles = from s in roleViewModel.Role
+            //             select s;
+
+            switch (SortOrder)
+            {
+                case "Name":
+                    roles = roles.OrderBy(s => s.Name).ToList();
+                    break;
+                case "Name_desc":
+                    roles = roles.OrderByDescending(s => s.Name).ToList();
+                    break;
+                default:
+                    roles = roles.OrderBy(s => s.Name).ToList();
+                    break;
+            }
+
+            return View(roles);
         }
 
         // GET: Roles/Details/5

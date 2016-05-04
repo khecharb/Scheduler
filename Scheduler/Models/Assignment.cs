@@ -60,6 +60,18 @@ namespace Scheduler.Models {
                 sc.SaveChanges();
             }
         }
+
+        public static void delete(int? assignmentID, SchedulerContext dbcontext)
+        {
+            if (assignmentID == null) { return; }
+
+          
+            Assignment a = dbcontext.Assignments.Find(assignmentID);
+            dbcontext.Assignments.Remove(a);
+            dbcontext.SaveChanges();
+            
+        }
+
         public void save()
         {
             if (this.ID <= 0)

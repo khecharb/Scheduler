@@ -258,17 +258,8 @@ namespace Scheduler.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event eve = db.Events.Find(id);
+            Event.delete(id);
 
-            //eve.Assignments = Assignment.getAssignmentsByEvent(eve.ID);
-
-            //foreach (Assignment assignment in eve.Assignments)
-            //{
-            //    Assignment.delete(assignment.ID);
-            //}
-
-            db.Events.Remove(eve);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

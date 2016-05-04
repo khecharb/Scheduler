@@ -37,12 +37,14 @@ namespace Scheduler.Models {
             {
                 Event p = sc.Events.Find(eveID);
                 // also remove assignments associated with event p
-                p.Assignments = Assignment.getAssignmentsByEvent(p.ID);
+                //p.Assignments = Assignment.getAssignmentsByEvent(p.ID);
 
-                foreach (Assignment assignment in p.Assignments)
-                {
-                    Assignment.delete(assignment.ID);
-                }
+                //foreach (Assignment assignment in p.Assignments)
+                //{
+                    
+                //    sc.Assignments.Remove(assignment);
+                //    sc.SaveChanges();
+                //}
 
                 sc.Events.Remove(p);
                 sc.SaveChanges();

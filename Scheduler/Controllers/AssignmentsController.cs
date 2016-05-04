@@ -16,32 +16,107 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Assignments
-        public ActionResult Index(string search, string option)
+        public ActionResult Index(string search, string option, string SortOrder)
         {
-            var assignments = db.Assignments.Include(a => a.Event).Include(a => a.Person).Include(a => a.Role);
+            var assignments = db.Assignments.Include(a => a.Event).Include(a => a.Person).Include(a => a.Role).ToList();
 
             //search feature for assignments view
-            //if (search != null && search != "" && option != null)
-            //{
-            //    if (option == "Name")
-            //    {
-            //        List<Assignment> matchingAssignments = db.Assignments.Where(s => s.Name.Contains(search)).ToList();
-            //        assignments = matchingAssignments;
-            //    }
-            //    else if (option == "")
-            //    {
+            if (search != null && search != "" && option != null)
+                {
+                    if (option == "Event Name")
+                    {
+                        List<Assignment> matchingAssignments = db.Assignments.Where(s => s.Event.Name.Contains(search)).ToList();
+                        assignments = matchingAssignments;
+                    }
+                    else if (option == "Employee Name")
+                    {
+                        List<Assignment> matchingAssignments = db.Assignments.Where(s => s.Person.FirstName.Contains(search)).ToList();
+                        assignments = matchingAssignments;
+                    }
+                    else if (option == "Role")
+                    {
+                        List<Assignment> matchingAssignments = db.Assignments.Where(s => s.Role.Name.Contains(search)).ToList();
+                        assignments = matchingAssignments;
+                    }
+                    else if (option == "Start Time")
+                    {
+                        List<Assignment> matchingAssignments = new List<Assignment>();
+                        foreach (Assignment e in assignments)
+                        {
+                            if (e.Event.StartTime.ToString().Contains(search) == true)
+                            {
+                                matchingAssignments.Add(e);
+                            }
+                        }
+                    assignments = matchingAssignments;
+                    }
+                    else if (option == "End Time")
+                    {
+                        List<Assignment> matchingAssignments = new List<Assignment>();
+                        foreach (Assignment e in assignments)
+                        {
+                            if (e.Event.EndTime.ToString().Contains(search) == true)
+                            {
+                                matchingAssignments.Add(e);
+                            }
+                        }
+                    assignments = matchingAssignments;
+                    }
+                }
+                else
+                {
+                    //personViewModel.Persons = Person.getAll();
+                }
+            
 
-            //    }
-            //    else if (option == "")
-            //    {
+            ViewBag.search = search;
+            ViewBag.option = option;
+            ViewBag.EventNameSortParm = SortOrder == "EventName" ? "EventName_desc" : "EventName";
+            ViewBag.FirstNameSortParm = SortOrder == "FirstName" ? "FirstName_desc" : "FirstName";
+            ViewBag.RoleSortParm = SortOrder == "Role" ? "Role_desc" : "Role";
+            ViewBag.StartTimeSortParm = SortOrder == "StartTime" ? "StartTime_desc" : "StartTime";
+            ViewBag.EndTimeSortParm = SortOrder == "EndTime" ? "EndTime_desc" : "EndTime";
 
-            //    }
-            //}
-            //else
-            //{
-            //    personViewModel.Persons = Person.getAll();
-            //}
+
+
+            switch (SortOrder)
+            {
+                case "EventName":
+                    assignments = db.Assignments.OrderBy(s => s.Event.Name).ToList();
+                    break;
+                case "EventName_desc":
+                    assignments = db.Assignments.OrderByDescending(s => s.Event.Name).ToList();
+                    break;
+                case "FirstName":
+                    assignments = db.Assignments.OrderBy(s => s.Person.FirstName).ToList();
+                    break;
+                case "FirstName_desc":
+                    assignments = db.Assignments.OrderByDescending(s => s.Person.FirstName).ToList();
+                    break;
+                case "Role":
+                    assignments = db.Assignments.OrderBy(s => s.Role.Name).ToList();
+                    break;
+                case "Role_desc":
+                    assignments = db.Assignments.OrderByDescending(s => s.Role.Name).ToList();
+                    break;
+                case "StartTime":
+                    assignments = db.Assignments.OrderBy(s => s.Event.StartTime).ToList();
+                    break;
+                case "StartTime_desc":
+                    assignments = db.Assignments.OrderByDescending(s => s.Event.StartTime).ToList();
+                    break;
+                case "EndTime":
+                    assignments = db.Assignments.OrderBy(s => s.Event.EndTime).ToList();
+                    break;
+                case "EndTime_desc":
+                    assignments = db.Assignments.OrderByDescending(s => s.Event.EndTime).ToList();
+                    break;
+                default:
+                    assignments = db.Assignments.OrderBy(s => s.Event.Name).ToList();
+                    break;
+        }
             return View(assignments.ToList());
+
         }
 
         // GET: Assignments/Details/5

@@ -9,22 +9,34 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <b>
+        Search: @Html.RadioButton("option", "Event Name", ViewBag.Option as string) <text>Event Name</text> @Html.RadioButton("option", "Employee Name", ViewBag.Option as string) <text>Employee Name</text>
+        @Html.RadioButton("option", "Role", ViewBag.Option as string) <text>Role</text>
+        @Html.RadioButton("option", "Start Time", ViewBag.Option as string) <text>Start Time</text> @Html.RadioButton("option", "Start Time", ViewBag.Option as string) <text>Start Time</text>
+        @Html.TextBox("search", ViewBag.search as string)
+        <input type="submit" value="Search" />
+    </b>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Event.Name)
+            @Html.ActionLink("Event Name", "Index", new { SortOrder = ViewBag.EventNameSortParm, search = ViewBag.search, option = ViewBag.option })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Person.FirstName)
+            @Html.ActionLink("Employee Name", "Index", new { SortOrder = ViewBag.FirstNameSortParm, search = ViewBag.search, option = ViewBag.option })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Role.Name)
+            @Html.ActionLink("Role", "Index", new { SortOrder = ViewBag.RoleSortParm, search = ViewBag.search, option = ViewBag.option })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartTime)
+            @Html.ActionLink("Start Time", "Index", new { SortOrder = ViewBag.StartTimeSortParm, search = ViewBag.search, option = ViewBag.option })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.ActionLink("End Name", "Index", new { SortOrder = ViewBag.EndTimeSortParm, search = ViewBag.search, option = ViewBag.option })
         </th>
         <th></th>
     </tr>

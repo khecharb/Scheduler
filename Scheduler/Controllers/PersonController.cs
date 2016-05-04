@@ -20,7 +20,7 @@ namespace Scheduler.Controllers
         private SchedulerContext db = new SchedulerContext();
 
         // GET: Person
-        public ActionResult Index(string search, string option)
+        public ActionResult Index(string search, string option, string SortOrder)
         {
             PersonViewModel personViewModel = new PersonViewModel();
             personViewModel.Persons = Person.getAll();
@@ -49,6 +49,41 @@ namespace Scheduler.Controllers
                 personViewModel.Persons = Person.getAll();
             }
 
+            //sort feature for persons view
+            ViewBag.search = search;
+            ViewBag.option = option;
+            ViewBag.FirstNameSortParm = SortOrder == "FirstName" ? "FirstName_desc" : "FirstName";
+            ViewBag.LastNameSortParm = SortOrder == "LastName" ? "LastName_desc" : "LastName";
+            ViewBag.EmailSortParm = SortOrder == "Email" ? "Email_desc" : "Email";
+
+            var Persons = from s in personViewModel.Persons
+                         select s;
+
+            switch (SortOrder)
+            {
+                case "FirstName":
+                    Persons = Persons.OrderBy(s => s.FirstName);
+                    break;
+                case "FirstName_desc":
+                    Persons = Persons.OrderByDescending(s => s.FirstName);
+                    break;
+                case "LastName":
+                    Persons = Persons.OrderBy(s => s.LastName);
+                    break;
+                case "LastName_desc":
+                    Persons = Persons.OrderByDescending(s => s.LastName);
+                    break;
+                case "Email":
+                    Persons = Persons.OrderBy(s => s.Email);
+                    break;
+                case "Email_desc":
+                    Persons = Persons.OrderByDescending(s => s.Email);
+                    break;
+                default:
+                    Persons = Persons.OrderBy(s => s.FirstName);
+                    break;
+            }
+
             // find and attach events and assignments associated with each person
             foreach (Person person in personViewModel.Persons)
             {
@@ -66,6 +101,7 @@ namespace Scheduler.Controllers
             }
             //demoMethods();
             //PersonViewModel personViewModel = createTestData();
+            personViewModel.Persons = Persons.ToList();
             return View(personViewModel);
         }
 
@@ -231,13 +267,13 @@ namespace Scheduler.Controllers
         {
             Person person = db.Persons.Find(id);
 
-            person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
+            //person.Assignments = Assignment.getAssignmentsByPersonID(person.ID);
 
-            foreach (Assignment assignment in person.Assignments)
-            {
-                Assignment.delete(assignment.ID);
-            }
-            Person.delete(id);
+            //foreach (Assignment assignment in person.Assignments)
+            //{
+            //    Assignment.delete(assignment.ID);
+            //}
+            //Person.delete(id);
             return RedirectToAction("Index");
         }
 

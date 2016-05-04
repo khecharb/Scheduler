@@ -23,15 +23,15 @@
 <table class="table">
     <tr>
         <th>
-            First Name
+            @Html.ActionLink("First Name", "Index", new { SortOrder = ViewBag.FirstNameSortParm, search = ViewBag.search, option = ViewBag.option })
 
         </th>
         <th>
-            Last Name
+            @Html.ActionLink("Last Name", "Index", new { SortOrder = ViewBag.LastNameSortParm, search = ViewBag.search, option = ViewBag.option })
 
         </th>
         <th>
-            Email
+            @Html.ActionLink("Email", "Index", new { SortOrder = ViewBag.EmailSortParm, search = ViewBag.search, option = ViewBag.option })
 
         </th>
         <th>
