@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Scheduler.DAL;
 using Scheduler.Models;
+using System.IO;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Scheduler.Controllers
 {
@@ -223,6 +225,32 @@ namespace Scheduler.Controllers
             Assignment assignment = db.Assignments.Find(id);
             db.Assignments.Remove(assignment);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            string path = string.Empty;
+            string EntityType = "Assignment";
+
+            BulkUpload AssignmentUpload = new BulkUpload();
+
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the filename
+                var fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                file.SaveAs(path);
+            }
+
+            TextFieldParser parser = new TextFieldParser(path);
+            parser.TextFieldType = FieldType.Delimited;
+            parser.SetDelimiters(",");
+
+            AssignmentUpload.Upload(path, parser, EntityType);
+
             return RedirectToAction("Index");
         }
 

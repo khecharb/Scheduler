@@ -277,6 +277,32 @@ namespace Scheduler.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            string path = string.Empty;
+            string EntityType = "Person";
+
+            BulkUpload PersonUpload = new BulkUpload();
+
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the filename
+                var fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                file.SaveAs(path);
+            }
+
+            TextFieldParser parser = new TextFieldParser(path);
+            parser.TextFieldType = FieldType.Delimited;
+            parser.SetDelimiters(",");
+
+            PersonUpload.Upload(path, parser, EntityType);
+
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

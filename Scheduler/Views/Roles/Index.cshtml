@@ -10,7 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Upload", "Roles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "Role", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
     @Html.AntiForgeryToken()
